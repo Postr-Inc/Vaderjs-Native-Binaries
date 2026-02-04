@@ -50,5 +50,8 @@ dependencies {
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
+    debugImplementation(libs.androidx.compose.ui.test.manifest) 
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 }
