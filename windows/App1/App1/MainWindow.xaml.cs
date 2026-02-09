@@ -342,8 +342,7 @@ namespace App1
 
             MyWebView.Source = new Uri(WebViewUrl);
             InitializeWebView();
-        }
-"{\"success\":false,\"error\":{\"formErrors\":[\"Invalid input: expected object, received string\"],\"fieldErrors\":{}}}"
+        } 
         private async void InitializeWebView()
         {
             try
@@ -533,13 +532,19 @@ namespace App1
                 switch (subcommand)
                 {
                     case "set":
-                        {
-                            string key = root.GetProperty("key").GetString() ?? "";
-                            string value = root.GetProperty("value").GetString() ?? "";
-                            AutoSecureStorage.Set(key, value);
-                            SendResponse(requestId, true);
-                            break;
-                        }
+{
+    string key = root.GetProperty("key").GetString() ?? "";
+    
+    // Serialize value to JSON string if it's not already a string
+    var valueElement = root.GetProperty("value");
+    string value = valueElement.ValueKind == JsonValueKind.String
+        ? valueElement.GetString()!
+        : valueElement.GetRawText(); // converts object/array to JSON string
+
+    AutoSecureStorage.Set(key, value);
+    SendResponse(requestId, true);
+    break;
+}
                     case "get":
                         {
                             string key = root.GetProperty("key").GetString() ?? "";
